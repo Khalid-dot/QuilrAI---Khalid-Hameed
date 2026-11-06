@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quilrai-mcp-gateway"
+version = "0.1.0"
+description = "Role-aware HTTP/JSON-RPC MCP security gateway"
+requires-python = ">=3.12"
+dependencies = ["starlette>=0.40,<2", "httpx>=0.28,<1", "uvicorn>=0.31,<1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "ruff>=0.11,<1"]
+
+[project.scripts]
+quilrai-gateway = "mcp_gateway.cli:gateway_main"
+quilrai-mock-mcp = "mcp_gateway.cli:mock_main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
